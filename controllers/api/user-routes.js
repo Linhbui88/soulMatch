@@ -3,22 +3,30 @@ const { User, Hobby, UserHobby } = require('../../models');
 const faker = require("faker");
 const { withAuth, withoutAuth } = require('../../utils/auth')
 
-//CREATE a new user
+router.get('/',(req,res)=>{
+  User.findAll({
+    attributes: { exclude: ['[password'] }
+})
+.then(dbUserData => res.json(dbUserData))
+.catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+});
+})
 
-//api/users/setupacc
-router.post('/setupacc', async (req, res) => {
+//api/user/
+router.post('/', async (req, res) => {
 
   try {
-    const newUserAcc = req.body
     const newUser = await User.create({
-      name: newUserAcc.name,
-      email: newUserAcc.email,
-      password: newUserAcc.password,
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
       image: faker.internet.avatar(),
       story: faker.lorem.words()
     });
     // Set up sessions with a 'loggedIn' variable set to `true`
-    req.session.save(async () => {
+      req.session.save(async () => {
       req.session.loggedIn = true;
       req.session.userId = newUser.id
       const responseUser = await User.findByPk(newUser.id, {
@@ -31,8 +39,38 @@ router.post('/setupacc', async (req, res) => {
     res.status(500).json(err);
   }
 })
-//Login
-//api/users/login
+//api/user/id
+router.get(':/id', (req,res)=>{
+  try {
+    const dbUserData = await User.findOne({
+    attributes: { exclude: ['password'] },
+    where: {
+      id: req.params.id
+            },
+    include: [{
+      model:UserHobby,
+      attibute: ['hobbyId']
+    },
+    {
+      model:UserLike,
+      attribute:['likeId']
+    }]
+
+  }); 
+    if (!dbUserData) {
+      res.status(404).json({ message: 'No user found with this id' });
+      return;
+    }
+    res.json(dbUserData);
+} catch(error) {
+    console.log(err);
+    res.status(500).json(err);
+
+  }
+})
+
+
+//api/user/login
 router.post('/login', async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -72,7 +110,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-//api/users/logout
+//api/user/logout
 router.post('/logout', (req, res) => {
   // When the user logs out, destroy the session
   if (req.session.loggedIn) {
