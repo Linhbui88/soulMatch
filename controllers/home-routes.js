@@ -3,25 +3,12 @@ const { Category, Hobby, User, UserLike } = require('../models')
 const { withAuth, withoutAuth } = require('../utils/auth')
 const sequelize = require('../config/connection');
 
-//rememember to add loggedIN to get categories/hobbies/people/person/mypage
 
 router.get('/', withoutAuth, (req, res) => res.render('index'))
-router.get('/setupacc', withoutAuth, (req, res) => res.render('setupAcc'))
+router.get('/signup', withoutAuth, (req, res) => res.render('signup'))
 router.get('/login', withoutAuth, (req, res) => res.render('login'))
 
-//GET curent login user's data
-router.get('/mypage', withAuth, async (req, res) => {
-  const user = await User.findByPk(req.session.userId, { include: [Hobby,{
-    model:User,
-    as:'likes',
-  }]})
-  const serializeUser = user.get({ plain: true })
-  console.log(serializeUser)
 
-  res.render('personalpage', {
-    user: serializeUser,
-  })
-})
 
 //GET all categories
 router.get('/categories', withAuth, async (req, res) => {
@@ -46,19 +33,6 @@ router.get('/categories/:id', withAuth, async (req, res) => {
   console.log(category, user)
 })
 
-//GET one user for homepage /people
 
-router.get('/people', withAuth, async (req, res) => {
-  const user = await User.findOne({
-    order: sequelize.random(),
-    include: Hobby
-  })
-  const serializeUser = user.get({ plain: true })
-  console.log(serializeUser)
-
-  res.render('people', {
-    user: serializeUser,
-  })
-})
 
 module.exports = router

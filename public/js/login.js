@@ -12,7 +12,7 @@ logInBtn.addEventListener('click', async (e) => {
   }
   if (userLogin.email && userLogin.password) {
 
-    const response = await fetch('/api/users/login', {
+    const response = await fetch('/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
   }
 })
 //api/user/id
-router.get(':/id', (req,res)=>{
+router.get(':/id', async (req,res)=>{
   try {
     const dbUserData = await User.findOne({
     attributes: { exclude: ['password'] },
@@ -122,63 +122,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-// save all user's hobbies
-//api/users/savehobbies
-router.post('/savehobbies', async (req, res) => {
-  const userId = req.session.userId
-  const hobbyId = req.body.hobby
-  const foundHobby = await Hobby.findByPk(hobbyId)
-  let user = await User.findByPk(userId, { include: Hobby })
-  await user.addHobby(foundHobby)
-
-  // refresh the user since just added a hobby
-  // and the old user doesn't have it since loaded it before adding the new foundHobby
-  user = await User.findByPk(userId, { include: Hobby })
-
-  res.status(200).json(user.get({ plain: true }))
-
-})
-router.post('/add-story', async (req, res) => {
-  const userId = req.session.userId
-  const currentUser = await User.findByPk(userId)
-  const story = req.body.story
-  currentUser.story = story
-  await currentUser.save()
-  res.status(200).send('Story added')
-})
-router.delete('/delete-hobby', async (req, res) => {
-  const userId = req.session.userId
-  await UserHobby.destroy({
-    where: {
-      userId,
-      hobbyId: req.body.id
-    }
-  })
-  let user = await User.findByPk(userId, { include: Hobby })
-
-  res.status(200).json(user.get({ plain: true }))
-})
-//POST routes UserLikes
-router.post('/add-likes', async (req,res)=>{
-  const userId1 =  req.session.userId
-  const user1 = await User.findByPk(userId1)
-
-  const userId2 = req.body.userId2
-  const foundUserLiked = await User.findByPk(userId2)
-
-  console.log(user1)
-  await user1.addLike(foundUserLiked)
-  
-
-  // refresh the user since just added a hobby
-  // and the old user doesn't have it since loaded it before adding the new foundHobby
-  user = await User.findByPk(userId1)
-
-  res.status(200).json(user.get({ plain: true }))
 
 
-
-
-})
 
 module.exports = router;

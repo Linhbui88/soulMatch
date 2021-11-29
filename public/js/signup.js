@@ -13,7 +13,7 @@ signUpBtn.addEventListener('click', async (e) => {
     email: emailInput.value,
     password: passwordInput.value
   }
-  const responseUser = await fetch('/api/users/setupacc', {
+  const responseUser = await fetch('/api/user', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
