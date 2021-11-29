@@ -7,7 +7,7 @@ const withAuth = (req, res, next) => {
 };
 const withoutAuth = (req,res,next) =>{
   if(req.session.loggedIn) {
-    res.redirect('/people')
+    res.redirect('/page/users-page')
   } else {
     next();
   }

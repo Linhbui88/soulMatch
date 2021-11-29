@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Hobby, UserHobby } = require('../../models');
 //POST routes UserLikes
+//api/likes/add-likes
 router.post('/add-likes', async (req,res)=>{
   const userId1 =  req.session.userId
   const user1 = await User.findByPk(userId1)

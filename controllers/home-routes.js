@@ -10,6 +10,7 @@ router.get('/login', withoutAuth, (req, res) => res.render('login'))
 
 
 
+
 //GET all categories
 router.get('/categories', withAuth, async (req, res) => {
   const foundCategories = await Category.findAll()

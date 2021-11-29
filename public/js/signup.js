@@ -20,7 +20,7 @@ signUpBtn.addEventListener('click', async (e) => {
     },
     body: JSON.stringify(newUserAcc)
   })
-  window.location.replace('/people')
+  window.location.replace('/page/users-page')
 
 
 })

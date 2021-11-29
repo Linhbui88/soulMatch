@@ -15,7 +15,7 @@ router.post('/add-hobbies', async (req, res) => {
   res.status(200).json(user.get({ plain: true }))
 
 })
-
+//api/hobbies/delete-hobby
 router.delete('/delete-hobby', async (req, res) => {
   const userId = req.session.userId
   await UserHobby.destroy({
