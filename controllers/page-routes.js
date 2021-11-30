@@ -13,10 +13,9 @@ router.get('/mypage', withAuth, async (req, res) => {
   }]
 })
   const serializeUser = user.get({ plain: true })
-  console.log(serializeUser)
-
   res.render('personal-page', {
     user: serializeUser,
+   
   })
 })
 //post user's story
@@ -27,21 +26,34 @@ router.post('/', async (req, res) => {
   const story = req.body.story
   currentUser.story = story
   await currentUser.save()
-  res.status(200).send('Story added')
+  res.status(200).send('Story added') 
 })
 //GET users for homepage
 //page/users-page
 router.get('/users-page', withAuth, async (req, res) => {
   const user = await User.findOne({
+
     order: sequelize.random(),
     include: Hobby
   })
 
   const serializeUser = user.get({ plain: true })
-  console.log(serializeUser)
-
   res.render('users-page', {
     user: serializeUser,
+   
   })
 })
+router.get('/users-page/:id',async (req,res)=>{
+ const  id = req.params.id
+ const  user = await User.findByPk(id,{
+   include:Hobby
+ })
+  const serializeUser = user.get({ plain: true })
+  res.render('users-page', {
+    user: serializeUser,
+   
+  })
+})
+
+
 module.exports = router

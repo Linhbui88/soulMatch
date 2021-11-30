@@ -1,7 +1,7 @@
 {{>navbar}}
 <div class="d-flex flex-column flex-md-row justify-content-lg-center align-items-center rounded bg-danger text-white bg-opacity-50 p-2 fs-5">
   <div class="col-4 d-flex flex-column align-items-center">
-    <div class="m-2"><img src="{{user.image}}" alt="{{user.name}}" width= "200" height="250"></div>
+    <div id="user" class="m-2"><img src="{{user.image}}" alt="{{user.name}}" width= "200" height="250"></div>
     {{>addHobbies}}
   </div>
 
@@ -31,13 +31,14 @@
     {{#each user.likes}}
     <div class=" d-flex flex-column m-3">
       <div class="mx-2 my-2"><img src="{{image}}" width= "150" height="150"></div>
-      <div class="mx-2 mb-5 fw-bold">{{name}}</div>
+      <div class="mx-2 mb-5 fw-bold">
+
+      <a href="/page/users-page/{{id}}">{{name}}</a>
+      </div>
     </div>
     
     {{/each}}
   </div>
-
-
 </div>
 
 

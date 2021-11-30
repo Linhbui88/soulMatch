@@ -23,8 +23,8 @@ logInBtn.addEventListener('click', async (e) => {
     const data = await response.json()
     console.log(data)
     if (data.user) {
-
-      window.location.replace('/page/users-page')
+     
+      window.location.replace('/page/users-page/')
     } else {
       alert('Incorrect email or password. Please try again!')
     }

@@ -4,13 +4,16 @@
   </div>
   <div class="d-flex flex-row">
     <h4 id="viewSingleBtn"class="btn me-4 fs-3">
-      <a class="text-danger text-decoration-none" href ="/page/users-page">Find Singles</a>
+      <a class="text-danger text-decoration-none" href ="/page/users-page/">Find Singles</a>
     </h4>
+ 
+    
+  
+    <!-- If the user is logged in, show a logout button -->
+    {{#if session.loggedIn}}
     <h4 id="pageBtn"class="btn me-4 text-danger fs-3"> 
       <a class="text-danger text-decoration-none" href ="/page/mypage">My Page</a>
     </h4>
-    <!-- If the user is logged in, show a logout button -->
-    {{#if session.loggedIn}}
     <h4 id="logout" class="btn text-danger fs-3">Log Out</h4>
     {{else}}
     <!-- Otherwise, show a link to login -->
@@ -25,4 +28,5 @@
 
 {{#if session.loggedIn}}
 <script src="/js/logout.js"> </script>
+
 {{/if}}

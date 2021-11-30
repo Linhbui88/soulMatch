@@ -16,7 +16,7 @@ likeBtn.addEventListener('click',()=>{
  })
  .then(response =>console.log(response))
  .catch( err => console.log(err))
-  window.location.replace('/users-page')
+  window.location.replace('/page/users-page')
 
  })
 

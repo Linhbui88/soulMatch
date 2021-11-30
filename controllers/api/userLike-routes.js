@@ -19,4 +19,7 @@ router.post('/add-likes', async (req,res)=>{
   res.status(200).json(user.get({ plain: true }))
 
 });
+router.get('/add-likes', async (req,res)=>{
+    User.findAll()
+})
 module.exports = router;
