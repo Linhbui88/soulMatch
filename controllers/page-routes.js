@@ -6,13 +6,14 @@ const sequelize = require('../config/connection');
 //GET curent login user's data
 //page/mypage
 router.get('/mypage', withAuth, async (req, res) => {
-  console.log(req.session.userId)
   const user = await User.findByPk(req.session.userId, { include: [Hobby,{
     model:User,
     as:'likes',
   }]
 })
   const serializeUser = user.get({ plain: true })
+  console.log(' TESTTTTT')
+  console.log(serializeUser.name.toUpperCase())
   res.render('personal-page', {
     user: serializeUser,
    
