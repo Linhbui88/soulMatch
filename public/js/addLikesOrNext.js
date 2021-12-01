@@ -3,6 +3,7 @@ document.getElementById('generateNextBtn').addEventListener('click',()=>{
 })
 const likeBtn =document.getElementById('likeBtn')
 const userId2 = likeBtn.getAttribute("data-user2Id")
+
 likeBtn.addEventListener('click',()=>{
  fetch('/api/likes/add-likes',{
    method:'POST',
@@ -20,4 +21,4 @@ likeBtn.addEventListener('click',()=>{
 
  })
 
-console.log(likeBtn.getAttribute("data-user2Id"))
+
