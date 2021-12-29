@@ -31,6 +31,7 @@ node server
 <br />
 
 ## Deloyed application link
+[View application link](https://murmuring-lowlands-42240.herokuapp.com/)
 
 ## Languages
 Javascript, Handlebars, Node, Express, MySQL, Sequelize <br />
