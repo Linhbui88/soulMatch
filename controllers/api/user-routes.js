@@ -18,11 +18,13 @@ router.get('/',(req,res)=>{
 router.post('/', async (req, res) => {
 
   try {
+    const randomNum = Math.floor(Math.random()* 100)
+    const randomSex = Math.floor(Math.random()* 2)? 'men' : 'women'
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      image: faker.internet.avatar(),
+      image:`https://randomuser.me/api/portraits/${randomSex}/${randomNum}.jpg`,
       story: faker.lorem.words()
     });
     // Set up sessions with a 'loggedIn' variable set to `true`
